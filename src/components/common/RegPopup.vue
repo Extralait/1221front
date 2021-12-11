@@ -355,6 +355,8 @@ export default {
       await this.createUser(json).then(resp => {
         if (!this.getAuth.errors.createUserError) {
           console.log()
+          this.back()
+          this.authFunction()
         } else {
           this.errors.email = true
           this.placeholders.email = 'E-mail already exist'
@@ -687,6 +689,10 @@ export default {
 <style scoped>
 .popup-container {
   position: fixed;
+  justify-content:center;
+  align-items: center;
+  align-content: center;
+  text-align: center;
   top: 0;
   right: 0;
   bottom: 0;

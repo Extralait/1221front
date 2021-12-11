@@ -59,7 +59,7 @@
                                   d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7"
                                                                                                r="4"></circle></svg></span>
                             </div>
-                            <input type="text" id="first-name-icon" class="form-control" name="fname-icon"
+                            <input type="text" v-model="form.from_email" id="first-name-icon" class="form-control" name="fname-icon"
                                    placeholder="Отправитель">
                           </div>
                         </div>
@@ -77,7 +77,7 @@
                                   d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline
                                   points="22,6 12,13 2,6"></polyline></svg></span>
                             </div>
-                            <input type="email" id="email-id-icon" class="form-control" name="email-id-icon"
+                            <input type="email" v-model="form.to_email" id="email-id-icon" class="form-control" name="email-id-icon"
                                    placeholder="Email получателя">
                           </div>
                         </div>
@@ -96,7 +96,7 @@
                                                                                                   ry="2"></rect><line
                                   x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
                             </div>
-                            <input type="number" id="contact-info-icon" class="form-control" name="contact-icon"
+                            <input type="number" v-model="form.date" id="contact-info-icon" class="form-control" name="contact-icon"
                                    placeholder="Дата и время отправки">
                           </div>
                         </div>
@@ -116,7 +116,7 @@
                                                                                                      ry="2"></rect><path
                                   d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
                             </div>
-                            <input type="password" id="password-icon" class="form-control" name="contact-icon"
+                            <input type="password"  v-model="form.content_type" id="password-icon" class="form-control" name="contact-icon"
                                    placeholder="Тип письма">
                           </div>
                         </div>
@@ -136,7 +136,7 @@
                                                                                                      ry="2"></rect><path
                                   d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
                             </div>
-                            <input type="password" id="password-icon" class="form-control" name="contact-icon"
+                            <input type="password" v-model="form.x_uid" id="password-icon" class="form-control" name="contact-icon"
                                    placeholder="Уникальный ID">
                           </div>
                         </div>
@@ -144,7 +144,7 @@
                       <div class="col-12">
                         <div class="form-group">
                           <label for="exampleFormControlTextarea1">Body</label>
-                          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"
+                          <textarea class="form-control" v-model="form.body" id="exampleFormControlTextarea1" rows="3"
                                     placeholder="Содержимое письма"></textarea>
                         </div>
                       </div>
@@ -240,7 +240,19 @@
 
 <script>
 export default {
-  name: "Home"
+  name: "Home",
+  data(){
+    return{
+      form:{
+        from_email: "",
+        to_email: "",
+        date: "",
+        content_type: "",
+        x_uid: "",
+        body: ""
+      }
+    }
+  }
 }
 </script>
 

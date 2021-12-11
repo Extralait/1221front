@@ -4,7 +4,10 @@
         style="z-index: 10005"
         v-if="regPopupHashes.includes($route.hash)"
     />
-    <VerNav/>
+    <VerNav
+        :is_auth="getAuth.is_auth"
+        :email="getAuth.user.email"
+    />
     <router-view
         v-if="!loading"
         :is_auth="getAuth.is_auth"
@@ -43,7 +46,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['verifyToken', 'activation', 'authorization', 'logout', 'setUser', 'createUser','setFiles']),
+    ...mapActions(['verifyToken', 'activation', 'authorization', 'logout', 'setUser', 'createUser','setEmailMessages']),
   },
   computed: {
     ...mapGetters(['getAuth']),
@@ -58,7 +61,7 @@ export default {
       if (!this.getAuth.errors.verifyError) {
         HTTP.defaults.headers.common['Authorization'] = 'JWT ' + localStorageToken
         await this.setUser()
-        await this.setFiles('?ordering=created_at')
+        // await this.setEmailMessages('?ordering=-created_at')
       }
     }
     this.loading = false

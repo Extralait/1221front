@@ -1,8 +1,7 @@
 import axios from 'axios'
 
 export const HTTP = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'http://157.245.240.24:5000/api',
 })
 
-HTTP.defaults.headers.post['Content-Type'] = "multipart/form-data"
 

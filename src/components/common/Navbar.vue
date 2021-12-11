@@ -16,14 +16,6 @@
             text="sign up"
             route="#sign_up"
         />
-        <input
-            type="file"
-            id="file"
-            name="file"
-            placeholder="Загрузить XML"
-            @change="postFile"
-            v-if="is_auth"
-        />
         <BaseTitle
             :classObject="{black:true}"
             v-if="is_auth"
@@ -99,36 +91,40 @@ export default {
 </script>
 
 <style scoped>
-.navbar {
-  height: 40px;
-  width: 100%;
-  background-color: white;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
+/*.navbar {*/
+/*  height: 40px;*/
+/*  width: 100%;*/
+/*  background-color: white;*/
+/*  display: flex;*/
+/*  justify-content: space-between;*/
+/*  align-items: center;*/
+/*}*/
 
-.navbar a, .navbar button {
-  color: white;
-  margin: 1%;
-  transition: all 0.3s
-}
+/*.navbar a, .navbar button {*/
+/*  color: white;*/
+/*  margin: 1%;*/
+/*  transition: all 0.3s*/
+/*}*/
 
-.navbar-container{
-  overflow: hidden
-}
+/*.navbar-container{*/
+/*  overflow: hidden*/
+/*}*/
 
-.navbar button {
-  padding-right: 25px;
-}
+/*.navbar button {*/
+/*  padding-right: 25px;*/
+/*}*/
 
-.log-container {
-  display: flex;
-  flex-direction: row;
-}
+/*.log-container {*/
+/*  display: flex;*/
+/*  flex-direction: row;*/
+/*}*/
 
-.log-container a, .log-container p {
-  width: 180px;
+/*.log-container a, .log-container p {*/
+/*  width: 180px;*/
+/*}*/
+
+.log-container a:first-child{
+  margin-right: 20px;
 }
 
 .toggle, #menu-checkbox {

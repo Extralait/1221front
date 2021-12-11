@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import auth from "./modulse/auth";
-import  files from "./modulse/files";
+import  files from "./modulse/email_messages";
 
 Vue.use(Vuex)
 

@@ -31,7 +31,7 @@ function createHTTP(url) {
     }
 }
 
-export const Files = createHTTP('/processed-files/')
+export const EmailMessage = createHTTP('/emails/')
 
 export const MyProfile = {
     async get() {
