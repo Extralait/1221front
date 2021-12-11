@@ -1,6 +1,5 @@
 import {HTTP} from './common'
 
-// eslint-disable-next-line no-unused-vars
 function createHTTP(url) {
     return {
         async post(config) {

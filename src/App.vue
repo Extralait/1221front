@@ -46,7 +46,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['verifyToken', 'activation', 'authorization', 'logout', 'setUser', 'createUser','setEmailMessages']),
+    ...mapActions(['verifyToken', 'setEmailMessages','activation', 'authorization', 'logout', 'setUser', 'createUser','setEmailMessages']),
   },
   computed: {
     ...mapGetters(['getAuth']),
@@ -61,7 +61,7 @@ export default {
       if (!this.getAuth.errors.verifyError) {
         HTTP.defaults.headers.common['Authorization'] = 'JWT ' + localStorageToken
         await this.setUser()
-        // await this.setEmailMessages('?ordering=-created_at')
+        await this.setEmailMessages('?ordering=-created_at')
       }
     }
     this.loading = false

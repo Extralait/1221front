@@ -55,11 +55,11 @@
                                                                   height="14" viewBox="0 0 24 24" fill="none"
                                                                   stroke="currentColor" stroke-width="2"
                                                                   stroke-linecap="round" stroke-linejoin="round"
-                                                                  class="feather at-sign"><path
-                                  d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7"
-                                                                                               r="4"></circle></svg></span>
+                                                                  class="feather feather-mail"><path
+                                  d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline
+                                  points="22,6 12,13 2,6"></polyline></svg></span>
                             </div>
-                            <input type="text" v-model="form.from_email" id="first-name-icon" class="form-control" name="fname-icon"
+                            <input type="email" v-model="form.from_email" id="first-name-icon" class="form-control" name="fname-icon"
                                    placeholder="Отправитель">
                           </div>
                         </div>
@@ -96,7 +96,7 @@
                                                                                                   ry="2"></rect><line
                                   x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
                             </div>
-                            <input type="number" v-model="form.date" id="contact-info-icon" class="form-control" name="contact-icon"
+                            <input type="datetime-local" v-model="form.date" id="contact-info-icon" class="form-control" name="contact-icon"
                                    placeholder="Дата и время отправки">
                           </div>
                         </div>
@@ -149,10 +149,10 @@
                         </div>
                       </div>
                       <div class="col-12">
-                        <button type="reset" class="btn btn-primary mr-1 waves-effect waves-float waves-light">
+                        <button type="reset" @click="CreateMessage(form)" class="btn btn-primary mr-1 waves-effect waves-float waves-light">
                           Проверить
                         </button>
-                        <button type="reset" class="btn btn-outline-secondary waves-effect">Очистить</button>
+                        <button type="reset" @click="clear" class="btn btn-outline-secondary waves-effect">Очистить</button>
                       </div>
                     </div>
                   </form>
@@ -186,46 +186,18 @@
                   <th>Точность</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
+                <tbody v-if="getEmails">
+                <tr v-for="(email,i) in getEmails" :key="i">
+                  <td><span
+                      v-bind:class="{'badge-light-success':email.status!=='malevolent','badge-danger':email.status==='malevolent'}"
+                      class="badge badge-pill  mr-1">{{email.status==='malevolent'? 'Вредоносный':'Безопасный'}}</span></td>
                   <td>
-                    <span class="font-weight-bold">34fb01171d58d77e83103cf8275df001a0777fe0</span>
+                    {{ email.accuracy }}%
                   </td>
-                  <td>mike.mcconnell@enron.com</td>
-                  <td><span class="badge badge-pill badge-light-success mr-1">Безопасное</span></td>
                   <td>
-                    100%
+                    <span class="font-weight-bold">{{email.x_uid}}</span>
                   </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold">628625bc91e9e70fece4ec8b6301179e54f48060</span>
-                  </td>
-                  <td>joannie.williamson@enron.com</td>
-                  <td><span class="badge badge-pill badge-light-success mr-1">Безопасное</span></td>
-                  <td>
-                    100%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold">628625bc91e9e70fece4ec8b6301179e54f48060</span>
-                  </td>
-                  <td>chris.germany@enron.com</td>
-                  <td><span class="badge badge-pill badge-danger mr-1">Вредоносное</span></td>
-                  <td>
-                    98%
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <span class="font-weight-bold">1b8b477ec7bbc34d2a49facaec531068bb18e904</span>
-                  </td>
-                  <td>sherri.sera@enron.com</td>
-                  <td><span class="badge badge-pill badge-danger mr-1">Вредоносное</span></td>
-                  <td>
-                    99%
-                  </td>
+                  <td>{{email.from_email}}</td>
                 </tr>
                 </tbody>
               </table>
@@ -239,6 +211,8 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "Home",
   data(){
@@ -252,8 +226,24 @@ export default {
         body: ""
       }
     }
+  },
+  methods:{
+    ...mapActions(['CreateMessage']),
+    clear: function (){
+      this.form = {
+        from_email: "",
+        to_email: "",
+        date: "",
+        content_type: "",
+        x_uid: "",
+        body: ""
+      }
+    }
+  },
+  computed: {
+    ...mapGetters(['getEmails']),
+    },
   }
-}
 </script>
 
 <style scoped>
