@@ -39,7 +39,12 @@
 
           <div class="row">
             <div class="col-md-12 col-12">
-              <div class="card">
+              <div class="card" v-if="!is_auth">
+                <div class="card-header">
+                  <h4 class="card-title" style="color:#d90000">Зарегистрируйтесь или войдите в учетную запись</h4>
+                </div>
+              </div>
+              <div class="card" v-else>
                 <div class="card-header">
                   <h4 class="card-title">Форма заполнения письма</h4>
                 </div>
@@ -215,6 +220,9 @@ import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "Home",
+  props:[
+     'is_auth'
+  ],
   data(){
     return{
       form:{
