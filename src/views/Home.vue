@@ -193,10 +193,10 @@
               <table class="table">
                 <thead class="thead-dark">
                 <tr>
-                  <th>X-UID</th>
-                  <th>Отправитель</th>
                   <th>Статус</th>
                   <th>Точность</th>
+                  <th>X-UID</th>
+                  <th>Отправитель</th>
                 </tr>
                 </thead>
                 <tbody v-if="getEmails">
