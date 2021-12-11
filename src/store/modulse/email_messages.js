@@ -1,5 +1,5 @@
 import {
-    SET_EMAIL_MESSAGE, CREATE_EMAIL_MESSAGE
+    SET_EMAIL_MESSAGE, CREATE_EMAIL_MESSAGE,CLEAR_MESSAGES
 } from '../mutation-types'
 import {EmailMessage} from "../../api/elements";
 
@@ -23,6 +23,9 @@ export default {
         [CREATE_EMAIL_MESSAGE](state, email_message) {
             state.email_messages = [email_message, ...state.email_messages]
         },
+        [CLEAR_MESSAGES](state) {
+            state.email_messages = []
+        },
     },
 // Действия
     actions: {
@@ -34,7 +37,7 @@ export default {
                     console.log(error)
                 })
         },
-        async CreateMessage({commit}, email_messageData) {
+        async createMessage({commit}, email_messageData) {
             await EmailMessage.post(email_messageData)
                 .then(email_message => {
                     commit(CREATE_EMAIL_MESSAGE, email_message)
@@ -43,6 +46,8 @@ export default {
                     console.log(err)
                 })
         },
-
+        clearMessages({commit}){
+            commit(CLEAR_MESSAGES)
+        }
     },
 }

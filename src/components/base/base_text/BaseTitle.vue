@@ -50,7 +50,6 @@ export default {
 
 <style scoped>
 p,a {
-  font-family: Roboto;
   font-style: normal;
   font-weight: bold;
   font-size: 30px;

@@ -24,7 +24,7 @@ function createHTTP(url) {
         },
         async list(queryParams = '') {
             return HTTP.get(`${url}${queryParams}`).then(response => {
-                return response.data.results
+                return response.data
             })
         }
     }

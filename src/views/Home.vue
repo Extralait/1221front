@@ -27,14 +27,14 @@
             <h4 class="card-title">Анализ письма на вредоносность🚀</h4>
           </div>
           <div class="card-body">
-            <div class="card-text" style="{flex-direction: row; display: flex;align-items: center}">
+            <div class="card-text" style="display: flex;flex-direction: column;">
+              <img src="../static/img/logo.png" style="height:120px;margin:auto"  alt="">
               <p>
                 Для проверки письма на вредоносность нужно заполнить все поля соответствующими данными и нажать на
                 кнопку "Проверить".<br>
                 Результатом предсказания будет бинарное значение 1\0 и процентная вероятность предсказания (0-100%). Что
                 соответствует: 1-вредоносное, 0-безопасное.
               </p>
-              <img src="../static/img/logo.png" style="height:120px" alt="">
             </div>
           </div>
 
@@ -65,7 +65,8 @@
                                   d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline
                                   points="22,6 12,13 2,6"></polyline></svg></span>
                             </div>
-                            <input type="email" v-model="form.from_email" id="first-name-icon" class="form-control" name="fname-icon"
+                            <input type="email" v-model="form.from_email" id="first-name-icon" class="form-control"
+                                   name="fname-icon"
                                    placeholder="Отправитель">
                           </div>
                         </div>
@@ -83,7 +84,8 @@
                                   d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline
                                   points="22,6 12,13 2,6"></polyline></svg></span>
                             </div>
-                            <input type="email" v-model="form.to_email" id="email-id-icon" class="form-control" name="email-id-icon"
+                            <input type="email" v-model="form.to_email" id="email-id-icon" class="form-control"
+                                   name="email-id-icon"
                                    placeholder="Email получателя">
                           </div>
                         </div>
@@ -102,7 +104,8 @@
                                                                                                   ry="2"></rect><line
                                   x1="12" y1="18" x2="12.01" y2="18"></line></svg></span>
                             </div>
-                            <input type="datetime-local" v-model="form.date" id="contact-info-icon" class="form-control" name="contact-icon"
+                            <input type="datetime-local" v-model="form.date" id="contact-info-icon" class="form-control"
+                                   name="contact-icon"
                                    placeholder="Дата и время отправки">
                           </div>
                         </div>
@@ -122,7 +125,8 @@
                                                                                                      ry="2"></rect><path
                                   d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
                             </div>
-                            <input type="password"  v-model="form.content_type" id="password-icon" class="form-control" name="contact-icon"
+                            <input type="password" v-model="form.content_type" id="password-icon" class="form-control"
+                                   name="contact-icon"
                                    placeholder="Тип письма">
                           </div>
                         </div>
@@ -142,7 +146,8 @@
                                                                                                      ry="2"></rect><path
                                   d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg></span>
                             </div>
-                            <input type="password" v-model="form.x_uid" id="password-icon" class="form-control" name="contact-icon"
+                            <input type="password" v-model="form.x_uid" id="password-icon" class="form-control"
+                                   name="contact-icon"
                                    placeholder="Уникальный ID">
                           </div>
                         </div>
@@ -155,10 +160,12 @@
                         </div>
                       </div>
                       <div class="col-12">
-                        <button type="reset" @click="CreateMessage(form)" class="btn btn-primary mr-1 waves-effect waves-float waves-light">
+                        <button type="reset" @click="createMessage(form)"
+                                class="btn btn-primary mr-1 waves-effect waves-float waves-light">
                           Проверить
                         </button>
-                        <button type="reset" @click="clear" class="btn btn-outline-secondary waves-effect">Очистить</button>
+                        <button type="reset" @click="clear" class="btn btn-outline-secondary waves-effect">Очистить
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -196,14 +203,15 @@
                 <tr v-for="(email,i) in getEmails" :key="i">
                   <td><span
                       v-bind:class="{'badge-light-success':email.status!=='malevolent','badge-danger':email.status==='malevolent'}"
-                      class="badge badge-pill  mr-1">{{email.status==='malevolent'? 'Вредоносный':'Безопасный'}}</span></td>
+                      class="badge badge-pill  mr-1">{{ email.status === 'malevolent' ? 'Вредоносный' : 'Безопасный' }}</span>
+                  </td>
                   <td>
                     {{ email.accuracy }}%
                   </td>
                   <td>
-                    <span class="font-weight-bold">{{email.x_uid}}</span>
+                    <span class="font-weight-bold">{{ email.x_uid }}</span>
                   </td>
-                  <td>{{email.from_email}}</td>
+                  <td>{{ email.from_email }}</td>
                 </tr>
                 </tbody>
               </table>
@@ -217,16 +225,14 @@
 </template>
 
 <script>
-import {mapActions, mapGetters} from "vuex";
-
 export default {
   name: "Home",
-  props:[
-     'is_auth'
+  props: [
+    'is_auth'
   ],
-  data(){
-    return{
-      form:{
+  data() {
+    return {
+      form: {
         from_email: "",
         to_email: "",
         date: "",
@@ -236,9 +242,9 @@ export default {
       }
     }
   },
-  methods:{
-    ...mapActions(['CreateMessage']),
-    clear: function (){
+  methods: {
+    ...mapActions(['createMessage','clearMessages']),
+    clear: function () {
       this.form = {
         from_email: "",
         to_email: "",
@@ -251,8 +257,18 @@ export default {
   },
   computed: {
     ...mapGetters(['getEmails']),
-    },
+  },
+  watch: {
+    // eslint-disable-next-line no-unused-vars
+    is_auth(newVal, oldVal) {
+      if (!newVal) {
+        this.clearMessages()
+      }
+    }
   }
+}
+
+import {mapActions, mapGetters} from "vuex";
 </script>
 
 <style scoped>
