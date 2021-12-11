@@ -1,28 +1,72 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <RegPopup
+        style="z-index: 10005"
+        v-if="regPopupHashes.includes($route.hash)"
+    />
+    <VerNav/>
+    <router-view
+        v-if="!loading"
+        :is_auth="getAuth.is_auth"
+    />
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+
+import RegPopup from "@/components/common/RegPopup";
+import VerNav from "@/components/common/VerNav";
+import {mapActions, mapGetters} from "vuex";
+import {HTTP} from "@/api/common";
+
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
+    RegPopup,VerNav
+  },
+  data() {
+    return {
+      loading: true,
+      is_portfolio_emit: false,
+      is_waiting_started: false,
+      regPopupHashes: [
+        '#sign_in',
+        '#sign_up',
+        '#reset_password',
+        '#reset_password_confirmation',
+        '#log_out',
+        '#account_activation',
+        '#api_key_change'
+      ],
+      reloadDataCounter: 0
+    }
+  },
+  methods: {
+    ...mapActions(['verifyToken', 'activation', 'authorization', 'logout', 'setUser', 'createUser','setFiles']),
+  },
+  computed: {
+    ...mapGetters(['getAuth']),
+    is_auth: function () {
+      return this.getAuth.is_auth
+    },
+  },
+  async mounted() {
+    let localStorageToken = localStorage.getItem('token')
+    if (localStorageToken) {
+      await this.verifyToken({"token": localStorageToken})
+      if (!this.getAuth.errors.verifyError) {
+        HTTP.defaults.headers.common['Authorization'] = 'JWT ' + localStorageToken
+        await this.setUser()
+        await this.setFiles('?ordering=created_at')
+      }
+    }
+    this.loading = false
+  },
 }
+
 </script>
 
+
 <style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
 </style>

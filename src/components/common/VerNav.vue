@@ -57,7 +57,7 @@
                                                        aria-expanded="false">
           <div class="user-nav d-sm-flex d-none"><span class="user-name font-weight-bolder">Станислав Н.</span><span
               class="user-status">Admin</span></div><span class="avatar"><img class="round"
-                                                                              src="../../../public/app-assets/images/avatars/1-small.png" alt="avatar" height="40" width="40"><span
+                                                                              src="../../../public/app-assets/images/avatars/1-small.png" alt="avatar" style="height:40px;width:40px"><span
             class="avatar-status-online"></span></span>
         </a>
           <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdown-user"><a class="dropdown-item"
