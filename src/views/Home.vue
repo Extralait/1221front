@@ -154,6 +154,13 @@
                       </div>
                       <div class="col-12">
                         <div class="form-group">
+                          <label for="exampleFormControlTextarea2">Subject</label>
+                          <textarea class="form-control" v-model="form.subject" id="exampleFormControlTextarea2" rows="3"
+                                    placeholder="Содержимое письма"></textarea>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="form-group">
                           <label for="exampleFormControlTextarea1">Body</label>
                           <textarea class="form-control" v-model="form.body" id="exampleFormControlTextarea1" rows="3"
                                     placeholder="Содержимое письма"></textarea>
@@ -251,7 +258,8 @@ export default {
         date: "",
         content_type: "",
         x_uid: "",
-        body: ""
+        body: "",
+        subject: ""
       }
     }
   },
