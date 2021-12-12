@@ -243,7 +243,7 @@ export default {
     }
   },
   methods: {
-    ...mapActions(['createMessage','clearMessages']),
+    ...mapActions(['createMessage','clearMessages','setEmailMessages']),
     clear: function () {
       this.form = {
         from_email: "",
@@ -263,6 +263,8 @@ export default {
     is_auth(newVal, oldVal) {
       if (!newVal) {
         this.clearMessages()
+      } else {
+        this.setEmailMessages('?ordering=-created_at')
       }
     }
   }
