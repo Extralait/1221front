@@ -213,7 +213,7 @@
                       class="badge badge-pill  mr-1">{{ email.status === 'malevolent' ? 'Вредоносный' : 'Безопасный' }}</span>
                   </td>
                   <td>
-                    {{ email.accuracy*100 }}%
+                    {{ email.status === 'malevolent' ? email.accuracy*100 : (1-email.accuracy)*100 }}%
                   </td>
                   <td>
                     <span class="font-weight-bold">{{ email.x_uid }}</span>
